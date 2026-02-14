@@ -171,14 +171,3 @@ Arquitectura modular
 Buenas prácticas de diseño
 
 Escalabilidad y mantenibilidad
-
-
----
-
-Ahora sí:  
-✔ GitHub lo interpretará perfectamente  
-✔ La estructura se verá alineada  
-✔ Las tablas funcionarán  
-✔ Los bloques de código se verán correctamente  
-
-Si quieres, puedo ahora dejarte una **versión aún más profesional estilo repositorio senior (con tabla de contenidos automática y sección de decisiones arquitectónicas)**.
