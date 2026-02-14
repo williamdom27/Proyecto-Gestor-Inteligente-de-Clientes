@@ -1,21 +1,12 @@
 GIC – Sistema de Gestión de Clientes
 
+Proyecto desarrollado en Python 3 aplicando principios sólidos de Programación Orientada a Objetos (POO), arquitectura modular y patrón CRUD, incorporando validaciones, manejo de excepciones y sistema de logging.
 
+1. Descripción
 
+GIC (Gestión Integral de Clientes) es una aplicación de consola diseñada para administrar distintos tipos de clientes mediante una estructura escalable, mantenible y orientada a buenas prácticas de ingeniería de software.
 
-
-
-
-
-
-
-Proyecto desarrollado en Python 3 aplicando principios sólidos de Programación Orientada a Objetos, arquitectura modular y patrón CRUD, con validaciones y sistema de logging.
-
- Descripción
-
-GIC (Gestión Integral de Clientes) es una aplicación de consola diseñada para administrar clientes de distintos tipos mediante una estructura escalable y mantenible.
-
-El sistema fue desarrollado bajo buenas prácticas de diseño de software, separando claramente:
+El sistema fue desarrollado separando claramente las responsabilidades en:
 
 Modelo de dominio
 
@@ -27,7 +18,9 @@ Manejo de excepciones
 
 Interfaz de usuario
 
- Arquitectura del Proyecto
+Esta separación permite mejorar la mantenibilidad, facilitar futuras extensiones y garantizar una arquitectura limpia.
+
+2. Arquitectura del Proyecto
 GIC/
 │
 ├── modelos/
@@ -41,22 +34,28 @@ GIC/
 ├── main.py
 ├── gic.log
 └── README.md
- Estructura Modular
+Estructura Modular
 
-modelos/ → Entidades del dominio
+modelos/
+Contiene las entidades del dominio y la jerarquía de clases.
 
-servicios/ → Validaciones reutilizables
+servicios/
+Incluye validaciones reutilizables y lógica auxiliar.
 
-excepciones.py → Excepciones personalizadas
+excepciones.py
+Define excepciones personalizadas del sistema.
 
-main.py → Punto de entrada (interfaz)
+main.py
+Punto de entrada de la aplicación. Gestiona la interacción con el usuario.
 
-gic.log → Registro de eventos
+gic.log
+Archivo de registro de eventos del sistema.
 
-Principios de Ingeniería Aplicados
+3. Principios de Ingeniería Aplicados
 Encapsulación
 
-Uso de @property para proteger y validar atributos sensibles como email y teléfono.
+Se implementa mediante el uso de @property para proteger atributos sensibles como email y telefono, validando su contenido antes de asignarlo.
+Esto garantiza integridad de datos y control sobre el estado interno del objeto.
 
 Herencia
 
@@ -68,19 +67,19 @@ ClientePremium
 
 ClienteCorporativo
 
-heredan de Cliente.
+heredan de la clase base Cliente, reutilizando estructura y comportamiento común.
 
 Polimorfismo
 
-Cada subclase redefine:
+Cada subclase redefine los métodos:
 
 tipo()
 
 descuento()
 
-permitiendo comportamiento dinámico sin modificar la lógica central.
+Esto permite que el sistema trate a todos los clientes de manera uniforme, pero con comportamientos específicos según su tipo.
 
-⚠ Manejo de Excepciones
+Manejo de Excepciones
 
 Se implementan excepciones personalizadas:
 
@@ -88,58 +87,64 @@ ValidacionError
 
 ClienteNoEncontradoError
 
-Mejora la robustez y claridad del sistema.
+Esto mejora la robustez del sistema y permite un control más preciso de errores.
 
 Logging
 
-Uso del módulo logging para registrar eventos en gic.log, permitiendo trazabilidad y auditoría.
+Se utiliza el módulo estándar logging de Python para registrar eventos en el archivo gic.log.
+El sistema permite trazabilidad, auditoría y diagnóstico sin afectar la ejecución normal del programa.
 
-Funcionalidades (CRUD)
+4. Funcionalidades Implementadas (CRUD)
 
-Implementadas en GestorClientes:
+La clase GestorClientes implementa el patrón CRUD:
 
 Operación	Método	Descripción
-Create	agregar()	Añade cliente validando duplicados
+Create	agregar()	Agrega cliente validando duplicados
 Read	listar() / buscar()	Consulta clientes
 Update	actualizar()	Modifica atributos dinámicamente
 Delete	eliminar()	Elimina cliente de forma segura
+5. Ejecución del Proyecto
+Requisitos
 
+Python 3.x
 
-Ejecutar aplicación
+Ejecutar la aplicación
 python main.py
-Ejemplo de Uso
+6. Ejemplo de Uso
 1. Agregar
 2. Listar
 3. Salir
 
-El sistema gestiona distintos tipos de cliente aplicando polimorfismo automáticamente.
+El sistema gestiona distintos tipos de clientes aplicando polimorfismo de manera automática.
 
-Diseño Técnico
+7. Diseño Técnico
 
 Arquitectura limpia y modular
 
-Separación de responsabilidades
+Separación clara de responsabilidades
 
 Código extensible
 
 Preparado para migrar a base de datos
 
-Base sólida para API REST futura
+Base sólida para futura implementación de API REST
 
-Roadmap / Mejoras Futuras
+8. Roadmap / Mejoras Futuras
 
 Persistencia con MySQL o PostgreSQL
 
-API REST con FastAPI
+Implementación de API REST con FastAPI
 
-Autenticación y roles
+Sistema de autenticación y roles
 
-Autor
+Incorporación de pruebas unitarias
+
+9. Autor
 
 Bryan William Nichol Poblete
 Proyecto académico – Programación Orientada a Objetos
 
-Licencia
+10. Licencia
 
 Uso académico y educativo.
 
@@ -147,7 +152,10 @@ Conclusión
 
 Este proyecto demuestra aplicación práctica de:
 
--Programación Orientada a Objetos
--Arquitectura modular
--Buenas prácticas de diseño
--Escalabilidad y mantenibilidad
+Programación Orientada a Objetos
+
+Arquitectura modular
+
+Buenas prácticas de diseño
+
+Escalabilidad y mantenibilidad
