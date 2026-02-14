@@ -1,173 +1,123 @@
-# GIC – Sistema de Gestión de Clientes
+GIC - Gestión Integral de Clientes
 
-Proyecto desarrollado en **Python 3** aplicando principios sólidos de **Programación Orientada a Objetos (POO)**, arquitectura modular y patrón **CRUD**, incorporando validaciones, manejo de excepciones y sistema de logging.
 
----
 
-## Descripción
 
-GIC (Gestión Integral de Clientes) es una aplicación de consola diseñada para administrar distintos tipos de clientes mediante una estructura escalable, mantenible y orientada a buenas prácticas de ingeniería de software.
 
-El sistema separa claramente:
 
-- Modelo de dominio  
-- Lógica de negocio  
-- Validaciones  
-- Manejo de excepciones  
-- Interfaz de usuario  
+Sistema simple de gestión de clientes desarrollado en Python.
+Permite registrar, validar y manejar clientes utilizando buenas prácticas como:
 
-Esta organización permite mejorar la mantenibilidad, facilitar futuras extensiones y garantizar una arquitectura limpia.
+Programación orientada a objetos
 
----
+Manejo de excepciones personalizadas
 
-## Arquitectura del Proyecto
-
-
-GIC/
-│
-├── modelos/
-│ ├── cliente.py
-│ ├── tipos_cliente.py
-│
-├── servicios/
-│ ├── validaciones.py
-│
-├── excepciones.py
-├── main.py
-├── gic.log
-└── README.md
-
-
----
-
-## Estructura Modular
-
-- **modelos/**  
-  Contiene las entidades del dominio y la jerarquía de clases.
-
-- **servicios/**  
-  Incluye validaciones reutilizables y lógica auxiliar.
-
-- **excepciones.py**  
-  Define excepciones personalizadas del sistema.
-
-- **main.py**  
-  Punto de entrada de la aplicación. Gestiona la interacción con el usuario.
-
-- **gic.log**  
-  Archivo de registro de eventos del sistema.
-
----
-
-## Principios de Ingeniería Aplicados
-
-### Encapsulación
-
-Uso de `@property` para proteger y validar atributos sensibles como `email` y `telefono` antes de su asignación, garantizando integridad de datos.
-
-### Herencia
-
-Las clases:
-
-- `ClienteRegular`  
-- `ClientePremium`  
-- `ClienteCorporativo`  
-
-heredan de la clase base `Cliente`.
-
-### Polimorfismo
-
-Cada subclase redefine los métodos:
-
-- `tipo()`  
-- `descuento()`  
-
-Esto permite que el sistema trate a todos los clientes de manera uniforme, pero con comportamientos específicos según su tipo.
-
-### Manejo de Excepciones
-
-Se implementan excepciones personalizadas:
-
-- `ValidacionError`  
-- `ClienteNoEncontradoError`  
-
-Esto mejora la robustez y claridad del sistema.
-
-### Logging
-
-Se utiliza el módulo estándar `logging` de Python para registrar eventos en el archivo `gic.log`, permitiendo trazabilidad y auditoría sin afectar la ejecución normal del programa.
-
----
-
-## Funcionalidades Implementadas (CRUD)
-
-La clase `GestorClientes` implementa el patrón CRUD:
-
-| Operación | Método | Descripción |
-|-----------|--------|------------|
-| Create | `agregar()` | Agrega cliente validando duplicados |
-| Read | `listar()` / `buscar()` | Consulta clientes |
-| Update | `actualizar()` | Modifica atributos dinámicamente |
-| Delete | `eliminar()` | Elimina cliente de forma segura |
-
----
-
-## Ejecución del Proyecto
-
-### Requisitos
-
-- Python 3.x
-
-### Ejecutar la aplicación
-
-```bash
-python main.py
-Ejemplo de Uso
-1. Agregar
-2. Listar
-3. Salir
-
-El sistema gestiona distintos tipos de clientes aplicando polimorfismo de manera automática.
-
-Diseño Técnico
-
-Arquitectura limpia y modular
-
-Separación clara de responsabilidades
-
-Código extensible
-
-Preparado para migrar a base de datos
-
-Base sólida para futura implementación de API REST
-
-Roadmap / Mejoras Futuras
-
-Persistencia con MySQL o PostgreSQL
-
-Implementación de API REST con FastAPI
-
-Sistema de autenticación y roles
-
-Incorporación de pruebas unitarias
-
-Autor
-
-Bryan William Nichol Poblete
-Proyecto académico – Programación Orientada a Objetos
-
-Licencia
-
-Uso académico y educativo.
-
-Conclusión
-
-Este proyecto demuestra aplicación práctica de:
-
-Programación Orientada a Objetos
+Logging de eventos
 
 Arquitectura modular
 
-Buenas prácticas de diseño
+Características
 
-Escalabilidad y mantenibilidad
+Registro de clientes
+
+Validación de datos
+
+Excepciones personalizadas
+
+Registro de eventos en archivo .log
+
+Código organizado y escalable
+
+Arquitectura del Proyecto
+GIC/
+│
+├── main.py
+├── cliente.py
+├── errores.py
+├── logger.py
+└── README.md
+Descripción de Archivos
+main.py
+
+Archivo principal del programa.
+Ejecuta la aplicación y gestiona el flujo general.
+
+cliente.py
+
+Contiene la clase Cliente y la lógica para agregar o buscar clientes.
+
+errores.py
+
+Define excepciones personalizadas:
+
+class ValidacionError(Exception):
+    pass
+
+class ClienteNoEncontradoError(Exception):
+    pass
+logger.py
+
+Configura el sistema de logging:
+
+import logging
+
+logging.basicConfig(
+    filename="gic.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+def registrar(mensaje):
+    logging.info(mensaje)
+Ejemplo de Uso
+
+Agregar cliente:
+
+clientes = []
+
+def agregar_cliente(nombre):
+    if not nombre:
+        raise ValidacionError("El nombre no puede estar vacío")
+    clientes.append(nombre)
+    registrar(f"Cliente agregado: {nombre}")
+
+Buscar cliente:
+
+def buscar_cliente(nombre):
+    if nombre not in clientes:
+        raise ClienteNoEncontradoError("Cliente no encontrado")
+    return nombre
+Manejo de Excepciones
+
+El sistema utiliza excepciones personalizadas para mejorar la claridad del código y el control de errores.
+
+Ejemplo:
+
+try:
+    agregar_cliente("")
+except ValidacionError as e:
+    print("Error de validación:", e)
+Logging
+
+Todos los eventos importantes se registran automáticamente en:
+
+gic.log
+
+Formato del registro:
+
+Fecha - Nivel - Mensaje
+
+Ejemplo:
+
+2026-02-14 08:15:23,456 - INFO - Cliente agregado: Bryan
+Buenas Prácticas Aplicadas
+
+Separación de responsabilidades
+
+Código modular
+
+Uso de excepciones específicas
+
+Registro de eventos
+
+Estructura clara y profesional
